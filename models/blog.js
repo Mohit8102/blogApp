@@ -1,4 +1,4 @@
-const { schema, models, Schema } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const blogSchema = new Schema({
     title: {
@@ -21,6 +21,4 @@ const blogSchema = new Schema({
 
 const Blog = model("blog", blogSchema);
 
-module.exports = {
-    Blog,
-};
+module.exports = Blog;
