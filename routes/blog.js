@@ -35,13 +35,16 @@ router.get("/:id", async (req, res) => {
   })
 });
 
-router.get("/comment/:blogId", async(req, res) => {
-  const comment = await Comment.create({
+router.post("/comment/:blogId", async (req, res) => {
+  if (!req.user) {
+    return res.redirect("/user/signin");
+  }
+  await Comment.create({
     content: req.body.content,
     blogId: req.params.blogId,
     createdBy: req.user._id,
   });
-  return res.render(`/blog/${req.params.blogId}`);
+  return res.redirect(`/blog/${req.params.blogId}`);
 });
 
 router.post('/add-new', upload.single("coverImage"), async (req, res) => {
